@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   
+  </head>
+
+  <body>
+    <h2>test for clone deep</h2>
+    <!-- <input id="myInput" type="text" minlength="2" oninput="handleInput()" onchange="handleChange()"> -->
+
+<script type="text/javascript">
+  let obj1 = {
+    num: 2,
+    str: 'hello',
+    boo: true,
+    nu: null,
+    und: undefined,
+    fun: function() {
+      console.log('fun');
+    },
+    arr: ['2'],
+    ob: {
+      a: '2',
+    }
+  };
+
+
+
+	function cloneDeep1(obj) {
+    return Object.assign({}, obj)
+  }
+
+  let obj2 = cloneDeep1(obj1);
+  obj2.num = 3;
+  obj2.str = 3;
+  obj2.boo = 3;
+  
+  obj2.nu = 3;
+  obj2.und = 3;
+  obj2.fun = 3;
+  obj2.arr = 3;
+  obj2.ob = 3;
+
+// 结论：Object.assign 对一维的 js所有数据类型进行的是深拷贝 obj2修改 不会影响 obj1
+  // console.log(obj1);
+  // console.log(obj2);
+
+  // let obj3 = cloneDeep1(obj1);
+  // obj3.ob.a = 3;
+  // // 结论：Object.assign 二维数据实现的是浅拷贝 obj3.ob.a 修改 会影响 obj1.ob.a
+  // console.log(obj1);
+  // console.log(obj3);
+
+
+  function cloneDeep2(obj) {
+    return {...obj}
+  }
+  console.log(obj1);
+  console.log(obj2);
+
+  obj3 = cloneDeep1(obj1);
+  obj3.ob.a = 3;
+  // 结论：Object.assign 二维数据实现的是浅拷贝 obj3.ob.a 修改 会影响 obj1.ob.a
+  console.log(obj1);
+  console.log(obj3);
+
+
+  // function cloneDeep3(obj) {
+  //   return JSON.parse(JSON.stringify(obj));
+  // }
+
+  // let obj5 = cloneDeep3(obj1);
+  
+  // // 结论：JSON.stringify 会忽略 undefined、function、 symbol ，意味着obj4的fun、und 属性会丢失
+  // console.log(obj1);
+  // console.log(obj5);
+
+
+
+
+
+
+</script>
+  </body>
+
+</html>

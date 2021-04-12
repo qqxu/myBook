@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   
+  </head>
+
+  <body>
+    <div>test for debounce and throttle</div>
+    <div id="domId" style="border: 1px solid red;width: 100px;height: 100px;">移到这里</div>
+    
+
+<script type="text/javascript">
+	var dom = document.getElementById("domId");
+  let i = 0;
+  let countFun = function () {
+    dom.innerHTML = i++;
+  };
+
+  dom.onmousemove=countFun;
+  
+  // 防抖 行为多次触发，只执行一次
+  function debounce(cb, wait) {
+   let previous = new Date();
+    return function() {
+      let now = new Date();
+
+      if (now - previous > wait) {
+        cb.apply(this, arguments);
+      }
+      previous = now;
+    }
+  }
+  dom.onmousemove=debounce(countFun, 1000);
+
+
+  // 节流， 行为多次触发，减少执行次数
+  function throttle(cb, wait){
+    let previous = new Date();
+    return function() {
+      let now = new Date();
+
+      if (now - previous > wait) {
+        cb.apply(this, arguments);
+        previous = now;
+      }
+    }
+  }
+  dom.onmousemove=throttle(countFun, 1000);
+
+</script>
+  </body>
+
+</html>

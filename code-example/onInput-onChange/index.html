@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   
+  </head>
+
+  <body>
+    <h2>difference for oninput and onchange</h2>
+    <input id="myInput" type="text" minlength="2" oninput="handleInput()" onchange="handleChange()">
+
+<script type="text/javascript">
+	function handleInput() {
+    var x = document.getElementById("myInput").value;
+    console.info("input", x);
+  }
+  function handleChange() {
+    var x = document.getElementById("myInput").value;
+    console.info("change", x);
+  }
+</script>
+  </body>
+
+</html>
