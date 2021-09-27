@@ -22,7 +22,10 @@
 - v-show：切换元素的style 为display none 
 - v-once： 不需要表达式， 组件及节点只渲染一次
 - v-on（简写 @）： 监听原生dom事件、监听自定义事件
-- v-bind（简写冒号 :）：
+    - @click="myFun" 中 myFun 第一个参数会是event对象
+    - @click="myFun()" 中 myFun 第一个参数会是 undefined
+    - @click="myFun(params, $event))"中 myFun 的第一个参数 会拿到 params，第二个参数会拿到event 对象
+- v-bind（简写冒号 :）
     - 用于绑定 html 属性
     - :class=classProperty classProperty可以使用对象，函数，数组，支持单一的js表达式，转成string
 - v-model: v-bind:value 与 v-on:input

@@ -30,7 +30,7 @@ Dom 事件处理分级，由于Dom1级中没有事件处理的内容，所以没
 ** Dom 2级事件处理 **
 
 ```
- ele.addeventlistener(event-name, callback, useCapture)
+ ele.addEventListener(event-name, callback, useCapture)
 
 ```
 - event-name 事件名称，不能加on，如click
@@ -42,6 +42,140 @@ Dom 事件处理分级，由于Dom1级中没有事件处理的内容，所以没
     - event.currentTarget: 始终是监听事件者
 - useCapture: 是否捕获阶段执行，默认值是false
 
+
+### 事件监听移除
+
+ chrome 浏览器可以利用 getEventListeners 查看绑定了几个eventListener: 
+ 
+
+普通函数：
+
+```
+
+// 每次console.log 时，打断点，然后在控制台执行 getEventListeners(dom) 即可提示当前绑定了几个listener 
+
+  const fun = () => {
+    console.log('3');
+  };
+  console.log('dom'); 
+
+  dom.addEventListener('click', fun);
+
+  console.log('dom'); 
+  dom.removeEventListener('click', fun); // dom 的事件监听可以被清除
+
+  console.log('dom'); 
+```
+
+
+
+箭头函数：无法被清除
+
+```
+
+// 每次console.log 时，打断点，然后在控制台执行 getEventListeners(dom) 即可提示当前绑定了几个listener 
+
+  const fun = (params) => {
+    console.log('params', params);
+  };
+  console.log('dom'); 
+
+  dom.addEventListener('click', () => fun(2));
+
+  console.log('dom'); 
+  dom.removeEventListener('click', () => fun(2)); // 无法被清除
+
+  console.log('dom'); 
+```
+
+添加带参数的 事件监听函数：
+ 只会清除最后一个事件监听函数
+
+```
+
+
+  let handler;
+  const funWithListener = (params) => {
+    handler = () => {
+      console.log('params', params);
+    }
+    dom.addEventListener('click', handler);
+  }
+
+  funWithListener(1);
+  console.log('dom');  // 已成功 新增了 一个listener
+
+  funWithListener(2);
+  console.log('dom'); // 已成功 新增了 一个listener，共2个
+
+  dom.removeEventListener('click', handler); 
+  console.log('dom'); // 已成功 移除 params 为2 的listener，还剩下一个
+
+  dom.removeEventListener('click', handler); 
+  console.log('dom'); // 仍然有 params 为1 的listener
+  
+```
+
+>  In the example above, you obviously could only remove the last handler.
+
+
+
+自定义handler，保存引用： 可以清除所有的 事件参数
+```
+
+/**
+ * @description: 保存 所有事件监听，用以清除
+ */
+export const EVENT_LISTENER = (function () {
+  let i = 1;
+  let listeners = {};
+
+  return {
+    addEventListener: (element, event, handler, capture = false) => {
+      element.addEventListener(event, handler, capture);
+      listeners[i] = { element, event, handler, capture };
+      return i++;
+    },
+    removeEventListener: (id) => {
+      const curListener = listeners[id];
+      if (!curListener) {
+        return;
+      }
+      const { element, event, handler, capture } = curListener;
+      element.removeEventListener(event, handler, capture);
+      delete listeners[id];
+    },
+    get: () => listeners,
+  };
+})();
+
+
+var dom = document.getElementById("domId");
+
+
+function doSomethingWith(param) {
+    return EVENT_LISTENER.addListener(dom, 'click', function() {
+        console.log(param);
+    }, false);
+}
+
+var handler = doSomethingWith('1');
+
+console.log(dom);
+
+var handler1 = doSomethingWith('2');
+
+console.log(dom);
+
+setTimeout(function() {
+     EVENT_LISTENER.removeListener(handler);
+     EVENT_LISTENER.removeListener(handler1);
+     console.log(dom); // 2个事件都被清空
+}, 3000);
+
+
+
+```
 
 ** Dom 3级事件处理 **
 在dom 2级基础上添加了事件类型，如焦点事件、鼠标事件

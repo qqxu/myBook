@@ -1,10 +1,10 @@
-# 个人学习笔记
+## 操作
+生成项目：`gitbook init`
 
-系统整理所有的知识
-
-- 基础知识梳理
-- 工作中遇到的问题
+在线查看：`gitbook serve`
 
 
-# 更新日志
-2021/04/12 init
+参考资料：
+[GitBook 安装以及使用](https://www.jianshu.com/p/e86c702578df)
+
+

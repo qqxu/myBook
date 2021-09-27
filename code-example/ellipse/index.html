@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   <style>
+     .parent {
+       display: flex;
+       flex-direction: row;
+     }
+
+     .flexCenter {
+       flex: 1;
+       display: flex;
+       align-items: center;
+     }
+
+     .ellipse {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+     }
+
+     .fixedWidth {
+       width: 50px;
+       border: 1px solid red;
+     }
+
+   </style>
+  </head>
+
+  <body>
+    <div class="parent">
+      <div class="flexCenter">
+        <div class="ellipse">
+          there are many txt.  there are many txt
+        there are many txt
+        there are many txt.  there are many txt
+        there are many txtthere are many txt.  there are many txt
+        there are many txtthere are many txt.  there are many txt
+        there are many txtthere are many txt.  there are many txt
+        there are many txt
+        </div>
+      </div>
+      <div class="fixedWidth">right</div>
+    </div>
+
+  </body>
+
+</html>

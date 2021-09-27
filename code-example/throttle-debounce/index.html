@@ -11,6 +11,13 @@
     
 
 <script type="text/javascript">
+
+/**
+ * @description: 自定义节流、防抖函数
+ * 节流：多次调用，减少执行次数
+ * 防抖：多次调用，只执行一次
+ */
+
 	var dom = document.getElementById("domId");
   let i = 0;
   let countFun = function () {
@@ -20,35 +27,67 @@
   dom.onmousemove=countFun;
   
   // 防抖 行为多次触发，只执行一次
-  function debounce(cb, wait) {
-   let previous = new Date();
-    return function() {
-      let now = new Date();
-
-      if (now - previous > wait) {
-        cb.apply(this, arguments);
-      }
-      previous = now;
+  
+  function debounce(func, wait) {
+    var timeout = null;
+    var context = this;
+    var args = arguments;
+    return function () {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            func.apply(context, args)
+        }, wait);
     }
-  }
+}
+
   dom.onmousemove=debounce(countFun, 1000);
 
 
-  // 节流， 行为多次触发，减少执行次数
-  function throttle(cb, wait){
-    let previous = new Date();
-    return function() {
-      let now = new Date();
+  // // 节流， 行为多次触发，减少执行次数
+  function throttle(func, wait) {
+    var timeout;
 
-      if (now - previous > wait) {
-        cb.apply(this, arguments);
-        previous = now;
-      }
+    return function() {
+        var context = this;
+        var args = arguments;
+        if (!timeout) {
+            timeout = setTimeout(function(){
+                timeout = null;
+                func.apply(context, args)
+            }, wait)
+        }
+
     }
-  }
-  dom.onmousemove=throttle(countFun, 1000);
+}
+  
+dom.onmousemove=throttle(countFun, 1000);
 
 </script>
+
+
+
+<script src="./throttle.js"></script>
+<script>
+
+/**
+ * @description: 使用 loadash 提供的节流函数
+ * 需要引入 throttle.js 
+ */
+
+var dom = document.getElementById("domId");
+
+// 不需要传参数
+dom.onmousemove=onThrottle(countFun, 1000);
+
+// 需要传参数
+dom.onmousemove=onThrottle((side) => {
+  countFun(side);
+}, 1000);
+
+
+</script>
+
+
   </body>
 
 </html>

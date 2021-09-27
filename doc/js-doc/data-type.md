@@ -1,4 +1,16 @@
-### 数据类型
+### 类型
+类型： 值的内部特征，定义了值的行为，以便区别于其他的值
+
+
+js 中的变量没有类型，只有值才有类型，变量可以随时持有任何类型的值
+
+```
+let a = 2; 
+typeof a // 'number'
+a = 'hello';
+typeof a // 'string'
+
+```
 
 分类：
 - 基本类型（Primitive data type）
@@ -8,7 +20,7 @@
 
 - boolean
 - string
-- symbol // TODO
+- symbol 
 - number
 - undefined
 - null
@@ -28,11 +40,110 @@ undefined 含义：表示缺省值
 - 对象没有赋值的属性
 - 函数没有返回时，默认返回undefined
 
+
+
+### number
+
+```
+function closeEqual(a, b) { 
+    return Math.abs(a - b) < Number.EPSILON;
+}
+
+closeEqual(0.1 + 0.2, 0.3) // true
+0.1 + 0.2 === 0.3 // false
+
+0.001 + 0.002 === 0.003  // true
+ 
+```
+
+*遇到NaN、-0 时 可以用 Object.is（a， NaN）来比较是否相等*
+
 #### 引用类型
 - Function
 - Array
+    - 类数组转换为真数组： Arr
 - RegExp
 - Date
+
+
+### 类数组转换成真数组
+
+- Array.prototype.slice.call(arguments)
+
+```
+function test() {
+    var a = Array.prototype.slice.call(arguments);
+    console.log('a', a); // [1, 2, 3, 4]
+    console.log('Array.isArray(a)', Array.isArray(a));  // true
+    console.log('Array.isArray(arguments)', Array.isArray(arguments));  // false
+}
+test(1, 2, 3, 4);
+
+```
+
+-  Array.from(arguments)
+
+```
+
+function test() {
+    var a = Array.from(arguments);
+    console.log('a', a); // [1, 2, 3, 4]
+    console.log('a isArray', Array.isArray(a));  // true
+    console.log('arguments isArray', Array.isArray(arguments));  // false
+}
+test(1, 2, 3, 4);
+
+```
+
+- 展开运算符
+
+```
+function test(...rest) {  
+    console.log('rest', rest); // [1,2,3,4]
+    console.log('rest isArray', Array.isArray(rest));  // true
+}  
+test(1, 2, 3, 4);
+
+```
+
+
+#### 复制
+- 简单值 通过值复制方式赋值/传递，包括：null、undefined、boolean、string、symbol、number
+
+- 引用类型的值 通过引用复制的方式赋值/传递
+
+  
+  通过引用x 更改a和x共同指向的值  
+```
+    var a = [1, 2, 3];
+
+    function test(x) {
+        x.push(4);
+        console.log('x', x);  // [1, 2, 3, 4]
+    }
+    test(a);
+    console.log(a);  // [1, 2, 3, 4]
+
+```
+
+**不能通过引用x 更改引用a 的指向**
+
+```
+    var a = [1, 2, 3];
+
+    function test(x) {
+        x.push(4);
+        console.log('x', x);  // [1, 2, 3, 4]
+        x = [5, 6, 7];
+        x.push(8);
+        console.log('x', x); // [5, 6, 7, 8]
+    }
+    test(a);
+    console.log(a);   // [1, 2, 3, 4]
+
+```
+
+
 
 
 ##### 深拷贝、浅拷贝
@@ -121,6 +232,34 @@ console.log(a.test); // undefined  第三行代码时又会自动新创建包装
 - constructor: F利用原型链上的constructor引用了自身，当F作为构造函数创建对象时，原型上的constructor就被遗传到了新创建的对象上
 - Object.toString(): 可以用来判断所有的数据类型, object 可以直接调用该方法，其他数据类型需要call/apply 才能返回正确的类型信息，支持所有数据类型
 
+```
+Object.prototype.toString.call('');//  "[object String]"
+```
+
+#### 对象
+- 属性名访问，如：obj.a ，属性名必须满足标识符命名规范
+    -  标识符命名规范中要求：不能以数字开头，不能包含` - `特殊字符
+
+    ```
+    var my-obj = {}; // Uncaught SyntaxError: Unexpected token -
+    var obj = { 'my-obj': 22 }; // 可以
+
+    ```
+
+- 键访问，如： obj[a] ，可以接受任意字符串，健会被转换为 string
+  
+
+
+
+
+
+
+
+参考资料：
+
+![键访问会转换成 string](./img/objGetVal.png)
+
+    
 
 
 [判断js数据类型的4种方法](https://www.cnblogs.com/onepixel/p/5126046.html)

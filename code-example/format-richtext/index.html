@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   
+  </head>
+
+  <body>
+    <h2>test for clone deep</h2>
+    <!-- <input id="myInput" type="text" minlength="2" oninput="handleInput()" onchange="handleChange()"> -->
+
+<script type="text/javascript">
+  const formatRichText = (richText) => {
+    if (!richText) {
+      return '';
+    }
+    
+    const reg = /<font [a-zA-Z\d=#\s"']+\s?>/;
+    const regGlobal = /<font [a-zA-Z\d=#\s"']+\s?>/g;
+    const domWithAttrList = richText.match(regGlobal);
+    if (!domWithAttrList) {
+      return richText;
+    }
+  
+   
+    console.log('domWithAttrList', domWithAttrList);
+    domWithAttrList.forEach((dom) => {
+      const attrList = dom.split(' ');
+      let updateDom = attrList.shift();
+      updateDom += ' style="';
+      attrList.forEach((attr) => {
+        const attrVal = attr.split('=');
+        if (attrVal.length > 1) {
+          attrVal[1] = attrVal[1].replace(/["'>]/g, '');
+          if (attrVal[0] === 'size') {
+            attrVal[0] = 'font-size';
+            attrVal[1] += 'px';
+          }
+          updateDom += `${attrVal[0]}:${attrVal[1]};`;
+        }
+      });
+      updateDom += '">';
+      richText = richText.replace(reg, updateDom);
+    });
+    console.log('richText', richText);
+
+    return richText.replace(/<bold>/g, '<b>').replace(/<\/bold>/g, '</b>')
+      .replace(/<number>/g, '<span style="font-family: shuhenormal1">').replace(/<\/number>/g, '</span>')
+      .replace(/<strike>/g, '<span style="text-decoration: line-through">').replace(/<\/strike>/g, '</span>')
+      .replace(/<font/g, '<span').replace(/<\/font>/g, '</span>');
+  };
+  
+  const a = "81.70元<font size='11' color='#FF322C' >&nbsp;(原&nbsp;90.88元,优惠券</font><font size='11' color='ff673f' >&nbsp;-9.18元</font><font size='11' color='#FF322C' >)</font>";
+  const b = "本金￥503.21+ 利息￥3.23+ 担保费￥20.80 <font size='12' color='FF322C' >优惠券已减 ¥3.06</font>";
+
+  console.log('a format', formatRichText(a));
+  console.log('b format', formatRichText(b));
+</script>
+  </body>
+
+</html>

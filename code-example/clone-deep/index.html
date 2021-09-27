@@ -77,8 +77,33 @@
   // console.log(obj5);
 
 
+  // 测试函数 按值传递, 函数中的obj 相当于开辟了新的内存空间，所以不影响原值
+  function test(obj) {
+    obj = {
+      name: 'hello test'
+    };
+    console.log('test obj', obj.name);  // hello test
+
+  }
+
+  // 会影响原值
+  function test2(obj) {
+    obj.name = 'hello test 2';
+    console.log('test2 obj', obj.name);  // hello test
+  }
 
 
+  let aa = {
+    name: 'a',
+  };
+
+  test(aa);
+
+  console.log('first a', aa.name);  // a
+
+  test2(aa);
+
+  console.log('second a', aa.name);  // hello test 2
 
 
 </script>

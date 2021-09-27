@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   
+  </head>
+
+  <body>
+    <h2>test for clone deep</h2>
+    <!-- <input id="myInput" type="text" minlength="2" oninput="handleInput()" onchange="handleChange()"> -->
+
+<script type="text/javascript">
+  const getNextDate = (dayStr = '2021-12-31') => {
+    const day = new Date(dayStr);
+
+    const nextDay = new Date(day);
+    nextDay.setDate(day.getDate() + 1);
+    
+
+    const year = nextDay.getFullYear();
+    const month = nextDay.getMonth() + 1;
+    const date = nextDay.getDate();
+
+    return {
+      year,
+      month,
+      date,
+    };
+  };
+
+  function tet(date, hour, minutes) {
+    const now = new Date('2021-8-30');
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+
+    const today = now.getDate();
+
+    if (date !== '今天') {
+      let dateStr = `${year}-${month}-${today}`;
+      const tomorrow = getNextDate(dateStr);
+      return {
+        ...tomorrow,
+        hour,
+        minutes
+      };
+    }
+    return {
+      year,
+      month,
+      date: today,
+      hour,
+      minutes
+    };
+  };
+
+</script>
+  </body>
+
+</html>

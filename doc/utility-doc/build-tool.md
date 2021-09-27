@@ -6,6 +6,48 @@
 
 
 ### webpack
+- 是什么
+ webpack 是用来编译 js 模块      
+
+
+- 为什么使用
+
+普通情况下，一个html可以用 script标签 引入多个 js文件。
+
+```
+// index.html
+
+<html>
+<head>
+  ...
+</head>
+<body>
+<div id="app"></div>
+
+<script src="xxxx/jquery.js"></script>
+<script src="xxxx/lodash.js"></script>
+<script src="xxxx/common.js"></script>
+<script src="xxxx/index.js"></script>
+
+</body>
+</html>
+
+
+```
+
+但是这种写法，无法管理 js 模块，如：引入顺序、依赖情况（如 index 依赖 jquery ）
+
+因此 可以在一个js 模块中 引入相应依赖方。
+
+```
+// index.js
+
+console.log('hello world');
+
+
+```
+
+### module、bundle、chunk
 
 #### 常见的loader
 - file-loader: 把文件输出到一个文件夹中，在代码中通过相对url引用输出的文件

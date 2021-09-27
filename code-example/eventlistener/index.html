@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   
+  </head>
+
+  <body>
+    <div>test for debounce and throttle</div>
+    <div id="domId" style="border: 1px solid red;width: 100px;height: 100px;">移到这里</div>
+    
+
+<script type="text/javascript">
+  // getEventListeners(dom) //   chrome 浏览器可以支持查看绑定了几个eventListener
+
+
+export const EVENT_LISTENER = (function() {
+    let i = 0;
+    let listeners = {};
+
+    return {
+        addEventListener: (element, event, handler, capture = false) => {
+            element.addEventListener(event, handler, capture);
+            listeners[i] = { element, event, handler, capture };
+            return i++;
+        },
+        removeEventListener: (id) => {
+            const curListener = listeners[id];
+            if (!curListener) {
+                return;
+            }
+            const { element, event, handler, capture } = curListener;
+            element.removeEventListener(event, handler, capture);
+        }
+    }
+})();
+
+
+	var dom = document.getElementById("domId");
+  
+
+function doSomethingWith(param) {
+    return EVENT_LISTENER.addListener(dom, 'click', function() {
+        console.log(param);
+    }, false);
+}
+
+var handler = doSomethingWith('1');
+
+console.log(dom);
+
+var handler1 = doSomethingWith('2');
+
+console.log(dom);
+
+setTimeout(function() {
+     Handler.removeListener(handler);
+     Handler.removeListener(handler1);
+     console.log(dom); // 2个事件都被清空
+}, 3000);
+
+
+  
+
+</script>
+
+
+
+
+  </body>
+
+</html>

@@ -23,6 +23,7 @@ H5开发：
 混合开发
 
 jsBridge： 通过协定协议，实现native 和web端双向通信的一种机制
+ 客户端通过 webview.loadUrl("javascript: funname()")
 
 - Native调用web端： 直接在js context中运行js代码
 - web调用native
