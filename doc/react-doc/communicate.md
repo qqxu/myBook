@@ -47,3 +47,56 @@ const parentPage = () => (
 
 
 ```
+
+
+#### 多个ref
+
+父组件存储多个ref子组件
+
+```
+
+
+function Supplement(props: SupplementProps) {
+
+  let formItemRefList = useRef<IformItemRef[]>([]);  // 父组件存储的ref
+ 
+  const onChange = (contactGroupResult) => {
+    const params = {
+      [key]: {
+        value: contactGroupResult,
+        required: true,
+        validateTrigger: () => {
+          return formItemRefList?.current[key]?.onValidate();   // 父组件调用子组件的方法
+        },
+      },
+    };
+  };
+
+  return (
+    <>
+      {
+        list?.map((itm) => {
+          const { key } = itm;
+          return (
+            <ContactGroup
+              key={key}
+              ref={(ele: IformItemRef) => {
+                formItemRefList.current[key] = ele;   // 每个子组件的实例 存储到 父组件中
+              }}
+              onChange={(res) =>
+                onChange(res)
+              }
+            />
+          );
+        });
+      }
+      <Button onClick={onPreSubmit}>
+        {btnText}
+      </Button>
+    </>
+  );
+}
+
+export default Supplement;
+
+```
