@@ -7,7 +7,7 @@
 
   <body>
     <h2>test for clone deep</h2>
-    <!-- <input id="myInput" type="text" minlength="2" oninput="handleInput()" onchange="handleChange()"> -->
+    <div onclick="onRichTextClick(event)" ><span href="#"><span>a link</span></span></div>
 
 <script type="text/javascript">
   const formatRichText = (richText) => {
@@ -55,6 +55,36 @@
 
   console.log('a format', formatRichText(a));
   console.log('b format', formatRichText(b));
+
+
+  const onRichTextClick = (e) => {
+    console.log('0', e);
+
+    var el = e.target;
+    console.log('1', el?.tagName);
+
+    while (el?.tagName !== 'A') {
+      el = el?.parentNode;
+      console.log('2', el?.tagName);
+      if (el?.tagName === 'BODY') {
+        el = null;
+        break;
+      }
+    }
+    console.log('after loop', el?.tagName);
+
+    if (!el) {
+      return;
+    }
+    // 点击了 a 标签
+    e.preventDefault();
+
+    const { href, innerText } = el;
+    console.log('href, innerText', href, innerText);
+   
+  };
+
+
 </script>
   </body>
 

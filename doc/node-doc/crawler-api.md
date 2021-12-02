@@ -9,7 +9,7 @@
 
 页面A链接：https://smf.taobao.com/index.htm?spm=xxxxxx&menu=xxxxxx&module=xxxxxx
 
-页面A是天猫商家的营销中心，访问页面A会跳转至登录, 输入【天猫商家】的账号+密码登录成功后，再次访问页面A，显示如下
+访问页面A会跳转至登录, 输入的账号+密码登录成功后，再次访问页面A，显示如下
 
 ![页面A](./imgs/page.png)
 

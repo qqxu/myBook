@@ -23,6 +23,9 @@
 |mkdir test | 在当前目录下创建名为test 的目录|
 |rm 文件名| 删除当前目录下的文件|
 |rm -f ||
+|touch test.txt| 新建test.txt文件|
+|open /Users/用户名/Desktop |用访达打开目录|
+|open `pwd` |用访达打开当前目录|
 
 
 

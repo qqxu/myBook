@@ -41,8 +41,9 @@
 * [DOM、BOM](doc/html-doc/dom-bom.md)
 
 
-### 工程化
+### 工具
 * [构建工具](doc/utility-doc/build-tool.md)
+* [单元测试](doc/utility-doc/jest.md)
 
 
 ### 开发
@@ -63,3 +64,4 @@
 
 ### 爬虫
 * [API 爬虫](doc/node-doc/crawler-api.md)
+* [模拟浏览器操作 puppeteer](doc/node-doc/puppeteer.md)
