@@ -78,6 +78,28 @@ const inputTypeDelay = 5;
 
 ```
 
+
+4. 使用innerText获取元素
+```
+// 找到list
+  const list = await page.$$('.s-bottom-layer-content > p'); 
+
+  // 获取所有list的innerText
+  const allTxt = await Promise.all(list.map(async (itm) => {
+    return await itm.$eval('.text-color', node => node.innerText);
+  }));
+
+  // 涉及到异步函数，不能直接使用find 或filer
+  const selectedIdx = allTxt.findIndex(ele => ele === '帮助中心');
+  const selectedEle = list[selectedIdx];
+  await selectedEle.click(); 
+
+```
+
+项目目录：
+[puppeteer-mock-browser](https://github.com/qqxu/puppeteer-mock-browser)
+
+
 参考资料
 [手动设置启动浏览器地址](https://www.jianshu.com/p/873f0bb2c3e5)
 [puppetpeer实例](https://www.cnblogs.com/wuweiblogs/p/12917136.html)
