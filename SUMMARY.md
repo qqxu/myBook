@@ -44,7 +44,11 @@
 ### 工具
 * [构建工具](doc/utility-doc/build-tool.md)
 * [单元测试](doc/utility-doc/jest.md)
-
+* [npm](doc/utility-doc/npm.md)
+* [projj](doc/utility-doc/projj.md)
+* [shell](doc/utility-doc/shell.md)
+* [snippet](doc/utility-doc/snippet.md)
+* [mock](doc/utility-doc/mock.md)
 
 ### 开发
 * [开发模式](doc/work-doc/develop-mode.md)
