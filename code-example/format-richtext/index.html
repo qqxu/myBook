@@ -45,7 +45,6 @@
     console.log('richText', richText);
 
     return richText.replace(/<bold>/g, '<b>').replace(/<\/bold>/g, '</b>')
-      .replace(/<number>/g, '<span style="font-family: shuhenormal1">').replace(/<\/number>/g, '</span>')
       .replace(/<strike>/g, '<span style="text-decoration: line-through">').replace(/<\/strike>/g, '</span>')
       .replace(/<font/g, '<span').replace(/<\/font>/g, '</span>');
   };

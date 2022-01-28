@@ -11,13 +11,47 @@
     
 
 <script type="text/javascript">
-  // getEventListeners(dom) //   chrome 浏览器可以支持查看绑定了几个eventListener
 
+function callback () {
+    console.log('params');
+};
 
-export const EVENT_LISTENER = (function() {
+const test = (params, isRemove) => {
+    if (isRemove) {
+        document.removeEventListener('click', callback);
+        return;
+    }
+    document.addEventListener('click', callback);
+}
+
+test('1');
+debugger
+// chrome 浏览器可以支持查看绑定了几个eventListener
+//  chrome控制台输入该方法即可，查看document绑定事件数 
+// getEventListeners(document); 1  
+
+test('2');
+debugger
+// 因为 callback 引用地址一样，所以实际上仍然只绑定了一个
+// getEventListeners(document);  1 
+
+test('1', true);
+debugger
+// getEventListeners(document); 0
+
+test('2', true);
+debugger
+// getEventListeners(document); 0
+
+// 绑定和移除绑定的参数，及回调函数必须一模一样，如果callback加参数，就无法移除之前绑定的事件
+
+const EVENT_LISTENER = (function() {
     let i = 0;
     let listeners = {};
 
+    {
+        url: { element, event, handler, capture }
+    }
     return {
         addEventListener: (element, event, handler, capture = false) => {
             element.addEventListener(event, handler, capture);
@@ -36,29 +70,33 @@ export const EVENT_LISTENER = (function() {
 })();
 
 
-	var dom = document.getElementById("domId");
-  
+function callback2 (params) {
+    console.log('params', params);
+};
 
-function doSomethingWith(param) {
-    return EVENT_LISTENER.addListener(dom, 'click', function() {
-        console.log(param);
-    }, false);
+const test2 = (params, isRemove) => {
+    return EVENT_LISTENER.addEventListener(document, 'click', () => {
+        callback2(params);
+    });
 }
 
-var handler = doSomethingWith('1');
+const eventId1 = test2('1');
+debugger
+// chrome 浏览器可以支持查看绑定了几个eventListener
+//  chrome控制台输入该方法即可，查看document绑定事件数 
+// getEventListeners(document); 1  
 
-console.log(dom);
+const eventId2 = test2('2');
+debugger
+// getEventListeners(document);  2
 
-var handler1 = doSomethingWith('2');
+EVENT_LISTENER.removeEventListener(eventId1);
+debugger
+// getEventListeners(document); 1
 
-console.log(dom);
-
-setTimeout(function() {
-     Handler.removeListener(handler);
-     Handler.removeListener(handler1);
-     console.log(dom); // 2个事件都被清空
-}, 3000);
-
+EVENT_LISTENER.removeEventListener(eventId2);
+debugger
+// getEventListeners(document); 0
 
   
 

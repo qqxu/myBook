@@ -49,6 +49,8 @@
 * [shell](doc/utility-doc/shell.md)
 * [snippet](doc/utility-doc/snippet.md)
 * [mock](doc/utility-doc/mock.md)
+* [package](doc/utility-doc/package.md)
+* [lerna](doc/utility-doc/lerna.md)
 
 ### 开发
 * [开发模式](doc/work-doc/develop-mode.md)

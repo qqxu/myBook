@@ -26,7 +26,8 @@
 |touch test.txt| 新建test.txt文件|
 |open /Users/用户名/Desktop |用访达打开目录|
 |open `pwd` |用访达打开当前目录|
-
+|grep --color "leo" /Users/用户名/Desktop |在目录下查找leo字符串并高亮|
 
 
 [Linux 常用操作命令大全（最后更新时间：2021）](https://blog.csdn.net/m0_46422300/article/details/104645072)
+[grep](http://c.biancheng.net/linux/grep.html)

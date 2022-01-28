@@ -1,6 +1,8 @@
 
 
-### 遇到的问题
+### puppeteer
+
+
 
 1. 无法安装 puppeteer
 报错信息：
@@ -52,7 +54,7 @@ const inputTypeDelay = 5;
   
   ...
   const userNameIpt = await page.waitForSelector('input#username');
-  await userNameIpt.type(shuheAccount, { delay: inputTypeDelay });
+  await userNameIpt.type(account, { delay: inputTypeDelay });
 
   const pwdIpt = await page.waitForSelector('input#password');
   await pwdIpt.type(pwd, { delay: inputTypeDelay });
@@ -80,6 +82,7 @@ const inputTypeDelay = 5;
 
 
 4. 使用innerText获取元素
+
 ```
 // 找到list
   const list = await page.$$('.s-bottom-layer-content > p'); 
@@ -95,6 +98,7 @@ const inputTypeDelay = 5;
   await selectedEle.click(); 
 
 ```
+
 
 项目目录：
 [puppeteer-mock-browser](https://github.com/qqxu/puppeteer-mock-browser)
